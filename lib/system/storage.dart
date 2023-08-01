@@ -20,10 +20,6 @@ Future<bool> checkUsbDevices() =>
     .map((final res) => res == '')
     .run();
 
-Future<String> checkPartIsMounted(
-  final String part
-) => sys("lsblk /dev/$part | sed -ne '/\\//p'");
-
 Future<String> checkPartFs(
   final String part
 ) => sys("lsblk -f /dev/$part | sed -ne '2p' | cut -d ' ' -f2");
@@ -39,7 +35,7 @@ Future<String> absoluteDev(
 ) => sys(
   'echo $dev '
   r"| sed 's/^\.\.\/\.\.\//\/dev\//' "
-  r"| sed '/.*[[:alpha:]]$/d' |d se '/blk[[:digit:]]$/d'"
+  r"| sed '/.*[[:alpha:]]$/d' | sed '/blk[[:digit:]]$/d'"
 );
 
 Future<String> mountUsbCheck(
