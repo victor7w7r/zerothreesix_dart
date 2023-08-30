@@ -22,7 +22,8 @@ Task<Process> _sysExec(
     ['-c', cmd],
     runInShell: true,
     mode: ProcessStartMode.inheritStdio
-  )));
+  ))
+);
 
 Future<bool> checkUid() =>
   _exec(r'echo $EUID')
