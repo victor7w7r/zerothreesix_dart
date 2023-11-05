@@ -3,9 +3,14 @@ import 'dart:io';
 
 import 'package:dcli/dcli.dart' show waitForEx;
 
-Future<int> dialog(final String title, final String body, final String height,
-    final String width) async {
-  final dialogBox = waitForEx(Process.start(
+Future<int> dialog(
+  final String title,
+  final String body,
+  final String height,
+  final String width,
+) async {
+  final dialogBox = waitForEx(
+    Process.start(
       'bash',
       [
         '-c',
@@ -13,7 +18,9 @@ Future<int> dialog(final String title, final String body, final String height,
         "whiptail --title '$title' --msgbox "
             "'$body' '$height' '$width'"
       ],
-      mode: ProcessStartMode.inheritStdio));
+      mode: ProcessStartMode.inheritStdio,
+    ),
+  );
   try {
     await dialogBox.stdout.pipe(stdout);
     await stdin.pipe(dialogBox.stdin);
@@ -26,7 +33,7 @@ Future<int> dialog(final String title, final String body, final String height,
 
 Timer spin() {
   var cursor = 0;
-  return Timer.periodic(Duration(milliseconds: 100), (final t) {
+  return Timer.periodic(const Duration(milliseconds: 100), (final t) {
     stdout.write("\r${['|', '/', '-', r'\'][cursor]}");
     cursor++;
     if (cursor == 4) cursor = 0;

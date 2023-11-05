@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_function_literals_in_foreach_calls
+// ignore_for_file: avoid_function_literals_in_foreach_calls, lines_longer_than_80_chars
 import 'dart:io' show exit;
 
 import 'package:console/console.dart' show Console;
@@ -35,20 +35,29 @@ String dialogLang(final int index, [final String? ins]) =>
         .map((final sel) => ins != null ? sel.replaceAll('*', ins) : sel)
         .run();
 
-String lang(final int index,
-        [final PrintQuery? typeQuery, final String? custom]) =>
+String lang(
+  final int index, [
+  final PrintQuery? typeQuery,
+  final String? custom,
+]) =>
     IO(() => english ? _dictEng[index] : _dictEsp[index])
-        .map((final sel) => typeQuery != null
-            ? IO(() => switch (typeQuery) {
-                  PrintQuery.normal => print(_replaceCustom(sel, custom)),
-                  PrintQuery.inline =>
-                    Console.write(_replaceCustom(sel, custom)),
-                  PrintQuery.warn => print(
-                      '${cyan('[*] ')} WARNING: ${_replaceCustom(sel, custom)}'),
-                  PrintQuery.error => print(
-                      '${red('[*] ')} ERROR: ${_replaceCustom(sel, custom)}')
-                }).map((final _) => '').run()
-            : _replaceCustom(sel, custom))
+        .map(
+          (final sel) => typeQuery != null
+              ? IO(
+                  () => switch (typeQuery) {
+                    PrintQuery.normal => print(_replaceCustom(sel, custom)),
+                    PrintQuery.inline =>
+                      Console.write(_replaceCustom(sel, custom)),
+                    PrintQuery.warn => print(
+                        '${cyan('[*] ')} WARNING: ${_replaceCustom(sel, custom)}',
+                      ),
+                    PrintQuery.error => print(
+                        '${red('[*] ')} ERROR: ${_replaceCustom(sel, custom)}',
+                      )
+                  },
+                ).map((final _) => '').run()
+              : _replaceCustom(sel, custom),
+        )
         .run();
 
 void error(final int index) {

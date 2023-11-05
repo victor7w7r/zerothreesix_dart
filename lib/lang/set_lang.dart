@@ -8,8 +8,8 @@ void setLang() {
   print(green('Bienvenido / Welcome'));
   print(cyan('Please, choose your language / Por favor selecciona tu idioma'));
 
-  IO(Chooser<String>(['English', 'Espanol'], message: 'Number/Numero: ')
-          .chooseSync)
-      .map((final sel) => english = sel == 'English')
-      .run();
+  IO(
+    Chooser<String>(['English', 'Espanol'], message: 'Number/Numero: ')
+        .chooseSync,
+  ).map((final sel) => english = sel == 'English').run();
 }
