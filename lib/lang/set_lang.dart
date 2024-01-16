@@ -1,12 +1,12 @@
 import 'package:console/console.dart' show Chooser;
-import 'package:dcli/dcli.dart' show cyan, green;
 import 'package:fpdart/fpdart.dart' show IO;
 
 import 'package:zerothreesix_dart/lang/lang.dart';
+import 'package:zerothreesix_dart/system/system.dart';
 
 void setLang() {
-  print(green('Bienvenido / Welcome'));
-  print(cyan('Please, choose your language / Por favor selecciona tu idioma'));
+  green('Bienvenido / Welcome \n');
+  cyan('Please, choose your language / Por favor selecciona tu idioma \n');
 
   IO(
     Chooser<String>(['English', 'Espanol'], message: 'Number/Numero: ')

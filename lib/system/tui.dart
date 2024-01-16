@@ -1,7 +1,5 @@
 import 'dart:async' show Timer;
-import 'dart:io';
-
-import 'package:dcli/dcli.dart' show waitForEx;
+import 'dart:io' show Process, ProcessStartMode, stdin, stdout;
 
 Future<int> dialog(
   final String title,
@@ -9,17 +7,15 @@ Future<int> dialog(
   final String height,
   final String width,
 ) async {
-  final dialogBox = waitForEx(
-    Process.start(
-      'bash',
-      [
-        '-c',
-        // ignore: no_adjacent_strings_in_list
-        "whiptail --title '$title' --msgbox "
-            "'$body' '$height' '$width'"
-      ],
-      mode: ProcessStartMode.inheritStdio,
-    ),
+  final dialogBox = await Process.start(
+    'bash',
+    [
+      '-c',
+      // ignore: no_adjacent_strings_in_list
+      "whiptail --title '$title' --msgbox "
+          "'$body' '$height' '$width'"
+    ],
+    mode: ProcessStartMode.inheritStdio,
   );
   try {
     await dialogBox.stdout.pipe(stdout);

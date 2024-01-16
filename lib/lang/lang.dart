@@ -2,10 +2,9 @@
 import 'dart:io' show exit;
 
 import 'package:console/console.dart' show Console;
-import 'package:dcli/dcli.dart' show cyan, red;
 import 'package:fpdart/fpdart.dart' show IO;
 
-import 'package:zerothreesix_dart/system/io.dart';
+import 'package:zerothreesix_dart/system/system.dart';
 
 enum PrintQuery { normal, inline, warn, error }
 
@@ -48,11 +47,13 @@ String lang(
                     PrintQuery.normal => print(_replaceCustom(sel, custom)),
                     PrintQuery.inline =>
                       Console.write(_replaceCustom(sel, custom)),
-                    PrintQuery.warn => print(
-                        '${cyan('[*] ')} WARNING: ${_replaceCustom(sel, custom)}',
+                    PrintQuery.warn => cyanMix(
+                        '[*] ',
+                        'WARNING: ${_replaceCustom(sel, custom)}',
                       ),
-                    PrintQuery.error => print(
-                        '${red('[*] ')} ERROR: ${_replaceCustom(sel, custom)}',
+                    PrintQuery.error => redMix(
+                        '[*] ',
+                        'ERROR: ${_replaceCustom(sel, custom)}',
                       )
                   },
                 ).map((final _) => '').run()
