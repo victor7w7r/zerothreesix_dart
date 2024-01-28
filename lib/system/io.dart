@@ -6,8 +6,16 @@ import 'package:fpdart/fpdart.dart' show Task;
 
 void clear() => Console().clearScreen();
 
-Task<ProcessResult> _exec(final String cmd) =>
-    Task(() async => Process.run('bash', ['-c', cmd], runInShell: true));
+Task<ProcessResult> _exec(
+  final String cmd,
+) =>
+    Task(
+      () async => Process.run(
+        'bash',
+        ['-c', cmd],
+        runInShell: true,
+      ),
+    );
 
 Task<Process> _sysExec(final String cmd) => Task(
       () async => Process.start(

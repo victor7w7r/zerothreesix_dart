@@ -1,9 +1,9 @@
 name: zerothreesix_dart
 description: victor7w7r utils collection for dart.
-version: 0.0.6+11
+version: 0.1.0
 
 environment:
-  sdk: ^3.2.4
+  sdk: ^3.2.6
 
 dependencies:
   console: ^4.1.0

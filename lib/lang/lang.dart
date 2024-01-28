@@ -25,11 +25,20 @@ void setDictDialogEsp(final List<String> incEsp) =>
 void setDictDialogEng(final List<String> incEng) =>
     _dictDialogEng.addAll(incEng);
 
-void setDictEsp(final List<String> incEsp) => _dictEsp.addAll(incEsp);
+void setDictEsp(
+  final List<String> incEsp,
+) =>
+    _dictEsp.addAll(incEsp);
 
-void setDictEng(final List<String> incEng) => _dictEng.addAll(incEng);
+void setDictEng(
+  final List<String> incEng,
+) =>
+    _dictEng.addAll(incEng);
 
-String dialogLang(final int index, [final String? ins]) =>
+String dialogLang(
+  final int index, [
+  final String? ins,
+]) =>
     IO(() => english ? _dictDialogEng[index] : _dictDialogEsp[index])
         .map((final sel) => ins != null ? sel.replaceAll('*', ins) : sel)
         .run();

@@ -1,5 +1,5 @@
 import 'dart:async' show Timer;
-import 'dart:io' show Process, ProcessStartMode, stdin, stdout;
+import 'dart:io';
 
 Future<int> dialog(
   final String title,
@@ -29,9 +29,12 @@ Future<int> dialog(
 
 Timer spin() {
   var cursor = 0;
-  return Timer.periodic(const Duration(milliseconds: 100), (final t) {
-    stdout.write("\r${['|', '/', '-', r'\'][cursor]}");
-    cursor++;
-    if (cursor == 4) cursor = 0;
-  });
+  return Timer.periodic(
+    const Duration(milliseconds: 100),
+    (final t) {
+      stdout.write("\r${['|', '/', '-', r'\'][cursor]}");
+      cursor++;
+      if (cursor == 4) cursor = 0;
+    },
+  );
 }
