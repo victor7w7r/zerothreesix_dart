@@ -1,6 +1,8 @@
 import 'dart:async' show Timer;
 import 'dart:io';
 
+import 'package:zerothreesix_dart/system/system.dart';
+
 Future<int> dialog(
   final String title,
   final String body,
@@ -27,14 +29,13 @@ Future<int> dialog(
   }
 }
 
-Timer spin() {
-  var cursor = 0;
-  return Timer.periodic(
-    const Duration(milliseconds: 100),
-    (final t) {
-      stdout.write("\r${['|', '/', '-', r'\'][cursor]}");
-      cursor++;
-      if (cursor == 4) cursor = 0;
-    },
-  );
-}
+Timer spin() => 0.let(
+      (cursor) => Timer.periodic(
+        const Duration(milliseconds: 100),
+        (final t) {
+          stdout.write("\r${['|', '/', '-', r'\'][cursor]}");
+          cursor++;
+          if (cursor == 4) cursor = 0;
+        },
+      ),
+    );
