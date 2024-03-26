@@ -1,4 +1,4 @@
-import 'package:console/console.dart' show Chooser;
+import 'package:cli_menu/cli_menu.dart' show Menu;
 import 'package:fpdart/fpdart.dart' show IO;
 
 import 'package:zerothreesix_dart/lang/lang.dart';
@@ -9,7 +9,6 @@ void setLang() {
   cyan('Please, choose your language / Por favor selecciona tu idioma \n');
 
   IO(
-    Chooser<String>(['English', 'Espanol'], message: 'Number/Numero: ')
-        .chooseSync,
-  ).map((final sel) => english = sel == 'English').run();
+    Menu(['English', 'Espanol']).choose,
+  ).map((final op) => english = op.value == 'English').run();
 }
