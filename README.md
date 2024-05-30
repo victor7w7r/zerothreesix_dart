@@ -1,4 +1,4 @@
-# zerothreesix_flutter
+# zerothreesix_dart
 
 A collection of utils/helpers for Console apps.
 
