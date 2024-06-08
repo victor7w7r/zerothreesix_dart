@@ -1,16 +1,18 @@
-import 'dart:io' show stdout;
+import 'dart:io' show Stdout, stdout;
 
 import 'package:console/console.dart' show Color, Console;
 
 void colorize(
   final Color color,
-  final String text,
-) {
-  final buffer = StringBuffer()
+  final String text, {
+  final Stdout? stdTest,
+}) {
+  final buffer = (StringBuffer()
     ..write(color.toString())
     ..write(text)
-    ..write('${Console.ANSI_ESCAPE}0m');
-  stdout.write(buffer.toString());
+    ..write('${Console.ANSI_ESCAPE}0m'));
+
+  (stdTest ?? stdout).write(buffer.toString());
 }
 
 void cyan(final String text) => colorize(

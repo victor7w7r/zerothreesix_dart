@@ -3,21 +3,22 @@ description: victor7w7r utils collection for dart.
 version: 0.1.4
 
 environment:
-  sdk: ^3.4.1
+  sdk: ^3.4.3
 
 dependencies:
   cli_menu: ^0.4.0+1
   console: ^4.1.0
-  dart_console2: ^3.0.0
+  dart_console2: ^3.1.1
   fpdart: ^1.1.0
 
 dev_dependencies:
+  coverage: ^1.8.0
   custom_lint: ^0.6.4
   import_sorter: ^4.6.0
-  lints: ^3.0.0
+  lints: ^4.0.0
   mocktail: ^1.0.3
   pyramid_lint: ^2.0.0
-  test: ^1.24.0
+  test: ^1.25.7
 
 import_sorter:
   comments: false
