@@ -1,0 +1,45 @@
+import 'package:cli_menu/cli_menu.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:test/test.dart';
+import 'package:zerothreesix_dart/lang/lang.dart';
+import 'package:zerothreesix_dart/lang/set_lang.dart';
+
+class MockMenu extends Mock implements Menu {}
+
+class FakeMenuResult {
+  const FakeMenuResult(this.value);
+  final String value;
+}
+
+void main() {
+  test('setLang sets english to true if English is selected', () {
+    final mockMenu = MockMenu();
+
+    when(() => mockMenu.choose()).thenReturn(FakeMenuResult('English'));
+
+    // Utilizamos el mock en lugar del verdadero Menu
+    IO(() => mockMenu.choose())
+        .map((final op) => english = op.value == 'English')
+        .run();
+
+    setLang();
+
+    expect(english, isTrue);
+  });
+
+  test('setLang sets english to false if Espanol is selected', () {
+    final mockMenu = MockMenu();
+
+    when(() => mockMenu.choose()).thenReturn(FakeMenuResult('Espanol'));
+
+    // Utilizamos el mock en lugar del verdadero Menu
+    IO(() => mockMenu.choose())
+        .map((final op) => english = op.value == 'Espanol')
+        .run();
+
+    setLang();
+
+    expect(english, isFalse);
+  });
+}

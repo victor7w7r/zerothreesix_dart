@@ -1,5 +1,5 @@
 // ignore_for_file: lines_longer_than_80_chars
-void cover() => print(
+const coverText =
     '                                    `"~>v??*^;rikD&MNBQku*;`                                           \n'
     '                                `!{wQNWWWWWWWWWWWWWWWNWWWWWWNdi^`                                       \n'
     '                              .v9NWWWWNRFmWWWWWWWWWWWWga?vs0pNWWWMw!                                    \n'
@@ -42,4 +42,6 @@ void cover() => print(
     '8o`  8     :8 8.  .P   8    8 8     8.     8    8   8   8 `b..d` 8.            8   8  8    8 8    8  8 8    8   `Yb. \n'
     '`YooP` `YooP` `YooP`   `YooP` 8     `Yooo` `YooP8   8   8  `YP`  `Yooo`   `YooP`   8  `YooP` `YooP`  8 `YooP` `YooP. \n'
     ':.....::.....::.....::::.....:..:::::.....::.....:::..::..::...:::.....::::.....:::..::.....::.....::..:.....::.....:\n'
-    ':::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::');
+    ':::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::';
+
+void cover() => print(coverText);
