@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls, lines_longer_than_80_chars
+
 import 'dart:io' show exit;
 
 import 'package:cli_menu/cli_menu.dart' show Menu;

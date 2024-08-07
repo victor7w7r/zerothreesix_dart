@@ -2,8 +2,8 @@ import 'dart:io' show stdout;
 
 import 'package:get_it/get_it.dart' show GetIt;
 
-import 'package:zerothreesix_dart/lang/lang.dart';
 import 'package:zerothreesix_dart/console/console.dart';
+import 'package:zerothreesix_dart/lang/lang.dart';
 
 void setupDartUtils() {
   GetIt.I.registerFactory(() => Colorize(stdout));

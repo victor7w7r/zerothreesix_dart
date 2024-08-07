@@ -1,4 +1,5 @@
 // ignore_for_file: discarded_futures
+
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 

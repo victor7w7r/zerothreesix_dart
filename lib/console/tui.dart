@@ -2,6 +2,7 @@ import 'dart:async' show Timer;
 import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
+
 import 'package:zerothreesix_dart/utils/utils.dart';
 
 class TuiWrapper {
