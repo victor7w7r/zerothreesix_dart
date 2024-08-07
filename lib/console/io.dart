@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dart_console2/dart_console2.dart' show Console;
+import 'package:dart_console/dart_console.dart' show Console;
 import 'package:fpdart/fpdart.dart' show Task;
 
 class InputOutputWrapper {
@@ -24,38 +24,38 @@ class InputOutputWrapper {
 }
 
 class InputOutput {
-  const InputOutput(this.io);
+  const InputOutput(this._io);
 
-  final InputOutputWrapper io;
+  final InputOutputWrapper _io;
 
   Future<int> call(final String cmd) =>
-      Task(() => io.run(cmd)).map((final res) => res.exitCode).run();
+      Task(() => _io.run(cmd)).map((final res) => res.exitCode).run();
 
-  Future<bool> checkUid() => Task(() => io.run(r'echo $EUID'))
+  Future<bool> checkUid() => Task(() => _io.run(r'echo $EUID'))
       .map((final res) => res.stdout.toString().trim() == '0')
       .run();
 
-  void clear() => Console().clearScreen();
+  void clear() => _io.clear();
 
-  Future<List<String>> codeout(final String cmd) => Task(() => io.run(cmd))
+  Future<List<String>> codeout(final String cmd) => Task(() => _io.run(cmd))
       .map((final res) => [res.exitCode.toString(), res.stdout.toString()])
       .run();
 
-  Future<int> coderes(final String cmd) => Task(() => io.runInherit(cmd))
+  Future<int> coderes(final String cmd) => Task(() => _io.runInherit(cmd))
       .flatMap((final res) => Task(() => res.exitCode))
       .run();
 
-  Future<bool> success(final String cmd) => Task(() => io.run('type $cmd'))
+  Future<bool> success(final String cmd) => Task(() => _io.run('type $cmd'))
       .map((final res) => res.exitCode == 0)
       .run();
 
-  ProcessResult syncCall(final String cmd) => io.syncCall(cmd);
+  ProcessResult syncCall(final String cmd) => _io.syncCall(cmd);
 
-  Future<String> sys(final String cmd) => Task(() => io.run(cmd))
+  Future<String> sys(final String cmd) => Task(() => _io.run(cmd))
       .map((final res) => res.stdout.toString().trim())
       .run();
 
-  Future<List<String>> syssplit(final String cmd) => Task(() => io.run(cmd))
+  Future<List<String>> syssplit(final String cmd) => Task(() => _io.run(cmd))
       .map((final res) => res.stdout.toString().split('\n'))
       .run();
 

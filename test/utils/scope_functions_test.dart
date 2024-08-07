@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import 'package:zerothreesix_dart/system/scope_functions.dart';
+import 'package:zerothreesix_dart/utils/scope_functions.dart';
 
 void main() {
   group('scopeFunctions', () {

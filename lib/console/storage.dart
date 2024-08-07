@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart' show Task;
 
-import 'package:zerothreesix_dart/system/io.dart';
+import 'package:zerothreesix_dart/console/io.dart';
 
 const _usbList = "find /dev/disk/by-id/ -name 'usb*' "
     '| sort -n '

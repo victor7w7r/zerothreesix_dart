@@ -5,16 +5,25 @@ import 'package:cli_menu/cli_menu.dart' show Menu;
 import 'package:console/console.dart' show Console;
 import 'package:fpdart/fpdart.dart' show IO;
 
-import 'package:zerothreesix_dart/system/system.dart';
+import 'package:zerothreesix_dart/console/console.dart';
+import 'package:zerothreesix_dart/utils/utils.dart';
 
 enum PrintQuery { normal, inline, warn, error }
 
-class ConsoleWrapper {
+class LangWrapper {
+  // coverage:ignore-start
+  String chooser(
+    final List<String> options,
+  ) =>
+      Menu(options).choose().let((final op) => op.value);
+  void errorExit() => exit(1);
+  void successExit() => exit(0);
+  // coverage:ignore-end
   void write(final String content) => Console.write(content);
 }
 
 class Lang {
-  Lang(this._colorize, this._console, this._io)
+  Lang(this._colorize, this._langWrapper, this._io)
       : dictDialogEng = [],
         dictDialogEsp = [],
         dictEng = [],
@@ -22,8 +31,8 @@ class Lang {
         isEnglish = false;
 
   final Colorize _colorize;
-  final ConsoleWrapper _console;
   final InputOutput _io;
+  final LangWrapper _langWrapper;
 
   final List<String> dictDialogEng;
   final List<String> dictDialogEsp;
@@ -44,18 +53,10 @@ class Lang {
         'Please, choose your language / Por favor selecciona tu idioma \n',
       );
 
-    Menu(['English', 'Espanol'])
-        .choose()
-        .let((final op) => isEnglish = op.value == 'English');
+    _langWrapper.chooser(['English', 'Espanol']).let(
+      (final op) => isEnglish = op == 'English',
+    );
   }
-
-  IO<String> chooser(
-    final String message,
-    final List<String> options,
-  ) =>
-      IO(
-        Menu(options).choose,
-      ).map((final op) => op.value);
 
   String dialogLang(
     final int index, [
@@ -69,27 +70,27 @@ class Lang {
     _io.clear();
     write(index, PrintQuery.error);
     print('\n');
-    exit(1);
+    _langWrapper.errorExit();
   }
 
-  bool isYesNo(
-    final String message,
-  ) =>
-      chooser(
-        message,
-        isEnglish ? ['Yes', 'No'] : ['Si', 'No'],
-      ).map((final sel) => sel == 'Yes' || sel == 'Si').run();
+  bool isYesNo(final String message) {
+    print(_langWrapper);
+
+    return _langWrapper
+        .chooser(isEnglish ? ['Yes', 'No'] : ['Si', 'No'])
+        .let((final sel) => sel == 'Yes' || sel == 'Si');
+  }
 
   void ok(final int index) {
     _io.clear();
     write(index, PrintQuery.normal);
-    exit(0);
+    _langWrapper.successExit();
   }
 
   void okLine() {
     print('\n =============== OK =============== \n');
-    write(5, PrintQuery.normal);
-    exit(0);
+    //write(5, PrintQuery.normal);
+    _langWrapper.successExit();
   }
 
   String write(
@@ -104,7 +105,7 @@ class Lang {
                     () => switch (typeQuery) {
                       PrintQuery.normal => print(_replaceCustom(sel, custom)),
                       PrintQuery.inline =>
-                        _console.write(_replaceCustom(sel, custom)),
+                        _langWrapper.write(_replaceCustom(sel, custom)),
                       PrintQuery.warn => _colorize.cyanMix(
                           '[*] ',
                           'WARNING: ${_replaceCustom(sel, custom)}',

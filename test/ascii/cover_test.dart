@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:zerothreesix_dart/misc/cover.dart';
+import 'package:zerothreesix_dart/ascii/cover.dart';
 
 void main() {
   group('cover', () {

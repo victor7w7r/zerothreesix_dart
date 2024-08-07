@@ -2,6 +2,6 @@ library zerothreesix_dart;
 
 export 'lang/lang.dart';
 
-export 'misc/cover.dart';
+export 'ascii/cover.dart';
 
-export 'system/system.dart';
+export 'console/console.dart';

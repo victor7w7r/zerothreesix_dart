@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import 'package:zerothreesix_dart/system/fp.dart';
+import 'package:zerothreesix_dart/utils/fp.dart';
 
 void main() {
   group('conditionals', () {
