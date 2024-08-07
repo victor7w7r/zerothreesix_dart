@@ -1,10 +1,11 @@
 import 'dart:async' show Future, FutureOr;
 
 typedef Func0<A> = A Function();
-typedef Func1<A, B> = B Function(A);
+typedef Func1<A, B> = B Function(A a);
 
 T? onlyIf<T>(final bool condition, final T Function() block) {
   if (condition) return block();
+
   return null;
 }
 
@@ -13,6 +14,7 @@ Future<T?> onlyIfAsync<T>(
   final FutureOr<T> Function() block,
 ) async {
   if (condition) return block();
+
   return Future.value();
 }
 
@@ -22,6 +24,7 @@ T ifElse<T>(
   final T Function() ifFalse,
 ) {
   if (condition) return ifTrue.call();
+
   return ifFalse.call();
 }
 
@@ -31,6 +34,7 @@ Future<T> ifElseAsync<T>(
   final FutureOr<T> Function() ifFalse,
 ) async {
   if (condition) return ifTrue.call();
+
   return ifFalse.call();
 }
 

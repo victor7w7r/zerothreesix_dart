@@ -1,56 +1,64 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:dart_console2/dart_console2.dart' show Console;
 import 'package:fpdart/fpdart.dart' show Task;
 
-void clear() => Console().clearScreen();
+class InputOutputWrapper {
+  void clear() => Console().clearScreen();
 
-Task<ProcessResult> _exec(
-  final String cmd,
-) =>
-    Task(
-      () async => Process.run(
+  Future<ProcessResult> run(final String cmd) => Process.run(
         'bash',
         ['-c', cmd],
         runInShell: true,
-      ),
-    );
+      );
 
-Task<Process> _sysExec(final String cmd) => Task(
-      () async => Process.start(
+  Future<Process> runInherit(final String cmd) => Process.start(
         'bash',
         ['-c', cmd],
         runInShell: true,
         mode: ProcessStartMode.inheritStdio,
-      ),
-    );
+      );
 
-ProcessResult syncCall(final String cmd) =>
-    Process.runSync('bash', ['-c', cmd]);
+  ProcessResult syncCall(final String cmd) =>
+      Process.runSync('bash', ['-c', cmd]);
+}
 
-Future<bool> checkUid() => _exec(r'echo $EUID')
-    .map((final res) => res.stdout.toString().trim() == '0')
-    .run();
+class InputOutput {
+  const InputOutput(this.io);
 
-Future<bool> success(final String cmd) =>
-    _exec('type $cmd').map((final res) => res.exitCode == 0).run();
+  final InputOutputWrapper io;
 
-Future<int> call(final String cmd) =>
-    _exec(cmd).map((final res) => res.exitCode).run();
+  Future<int> call(final String cmd) =>
+      Task(() => io.run(cmd)).map((final res) => res.exitCode).run();
 
-Future<int> coderes(final String cmd) =>
-    _sysExec(cmd).flatMap((final res) => Task(() => res.exitCode)).run();
+  Future<bool> checkUid() => Task(() => io.run(r'echo $EUID'))
+      .map((final res) => res.stdout.toString().trim() == '0')
+      .run();
 
-Future<List<String>> codeout(final String cmd) => _exec(cmd)
-    .map((final res) => [res.exitCode.toString(), res.stdout.toString()])
-    .run();
+  void clear() => Console().clearScreen();
 
-Future<String> sys(final String cmd) =>
-    _exec(cmd).map((final res) => res.stdout.toString().trim()).run();
+  Future<List<String>> codeout(final String cmd) => Task(() => io.run(cmd))
+      .map((final res) => [res.exitCode.toString(), res.stdout.toString()])
+      .run();
 
-Future<List<String>> syssplit(final String cmd) =>
-    _exec(cmd).map((final res) => res.stdout.toString().split('\n')).run();
+  Future<int> coderes(final String cmd) => Task(() => io.runInherit(cmd))
+      .flatMap((final res) => Task(() => res.exitCode))
+      .run();
 
-Future<String> syswline(final String cmd) =>
-    Task(() => syssplit(cmd)).map((final sys) => sys.first).run();
+  Future<bool> success(final String cmd) => Task(() => io.run('type $cmd'))
+      .map((final res) => res.exitCode == 0)
+      .run();
+
+  ProcessResult syncCall(final String cmd) => io.syncCall(cmd);
+
+  Future<String> sys(final String cmd) => Task(() => io.run(cmd))
+      .map((final res) => res.stdout.toString().trim())
+      .run();
+
+  Future<List<String>> syssplit(final String cmd) => Task(() => io.run(cmd))
+      .map((final res) => res.stdout.toString().split('\n'))
+      .run();
+
+  Future<String> syswline(final String cmd) =>
+      Task(() => syssplit(cmd)).map((final sys) => sys.first).run();
+}

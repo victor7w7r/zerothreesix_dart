@@ -1,55 +1,39 @@
-import 'dart:io' show Stdout, stdout;
+import 'dart:io' show Stdout;
 
 import 'package:console/console.dart' show Color, Console;
 
-void colorize(
-  final Color color,
-  final String text, {
-  final Stdout? stdTest,
-}) {
-  final buffer = (StringBuffer()
-    ..write(color.toString())
-    ..write(text)
-    ..write('${Console.ANSI_ESCAPE}0m'));
+class Colorize {
+  const Colorize(this.stdout);
 
-  (stdTest ?? stdout).write(buffer.toString());
-}
+  final Stdout stdout;
 
-void cyan(final String text) => colorize(
-      Color.CYAN,
-      text,
-    );
+  void colorize(final Color color, final String text) {
+    final buffer = (StringBuffer()
+      ..write(color.toString())
+      ..write(text)
+      ..write('${Console.ANSI_ESCAPE}0m'));
 
-void cyanMix(
-  final String cyanText,
-  final String text,
-) {
-  cyan(cyanText);
-  print(text);
-}
+    stdout.write(buffer.toString());
+  }
 
-void green(
-  final String text,
-) =>
-    colorize(Color.GREEN, text);
+  void cyan(final String text) => colorize(Color.CYAN, text);
 
-void greenMix(
-  final String greenText,
-  final String text,
-) {
-  green(greenText);
-  print(text);
-}
+  void cyanMix(final String cyanText, final String text) {
+    cyan(cyanText);
+    print(text);
+  }
 
-void red(
-  final String text,
-) =>
-    colorize(Color.RED, text);
+  void green(final String text) => colorize(Color.GREEN, text);
 
-void redMix(
-  final String redText,
-  final String text,
-) {
-  red(redText);
-  print(text);
+  void greenMix(final String greenText, final String text) {
+    green(greenText);
+    print(text);
+  }
+
+  void red(final String text) => colorize(Color.RED, text);
+
+  void redMix(final String redText, final String text) {
+    red(redText);
+    print(text);
+  }
 }

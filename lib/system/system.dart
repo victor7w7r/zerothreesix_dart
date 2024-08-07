@@ -1,4 +1,3 @@
-export 'chooser.dart';
 export 'colorize.dart';
 export 'io.dart';
 export 'fp.dart';
