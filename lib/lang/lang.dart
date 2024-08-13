@@ -59,6 +59,11 @@ class Lang {
     );
   }
 
+  String chooser(
+    final List<String> options,
+  ) =>
+      _langWrapper.chooser(options);
+
   String dialogLang(
     final int index, [
     final String? ins,
@@ -75,7 +80,7 @@ class Lang {
   }
 
   bool isYesNo(final String message) {
-    print(_langWrapper);
+    print(message);
 
     return _langWrapper
         .chooser(isEnglish ? ['Yes', 'No'] : ['Si', 'No'])

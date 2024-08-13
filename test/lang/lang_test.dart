@@ -42,6 +42,13 @@ void main() {
       expect(lang.isEnglish, true);
     });
 
+    test('chooser', () {
+      when(() => langWrapper.chooser(['English', 'Espanol']))
+          .thenReturn('English');
+      expect(lang.chooser(['English', 'Espanol']), 'English');
+      verify(() => langWrapper.chooser(['English', 'Espanol'])).called(1);
+    });
+
     test('dialogLang', () {
       lang.isEnglish = true;
       lang.dictDialogEng.add('Hello');
