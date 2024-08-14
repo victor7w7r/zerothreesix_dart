@@ -41,7 +41,7 @@ void main() {
 
       final result = await tui.dialog('title', 'body', '0', '0');
 
-      expect(result, 0);
+      expect(result, 127);
     });
 
     test('call dialog unsuccessfully', () async {
@@ -55,7 +55,7 @@ void main() {
 
       final result = await tui.dialog('title', 'body', '0', '0');
 
-      expect(result, 1);
+      expect(result, 127);
     });
 
     test('spin', () async {

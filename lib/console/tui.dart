@@ -1,8 +1,6 @@
 import 'dart:async' show Timer;
 import 'dart:io';
 
-import 'package:fpdart/fpdart.dart';
-
 import 'package:zerothreesix_dart/utils/utils.dart';
 
 class TuiWrapper {
@@ -39,15 +37,16 @@ class Tui {
   ) async {
     final dialogBox = await _tui.showDialog(title, body, height, width);
 
-    return TaskEither.tryCatch(
-      () async {
-        await dialogBox.stdout.pipe(stdout);
-        await stdin.pipe(dialogBox.stdin);
-
-        return dialogBox.exitCode;
-      },
-      (final e, final __) => e,
-    ).getOrElse((final _) => 1).run();
+    try {
+      await dialogBox.stdout.pipe(stdout);
+      await stdin.pipe(dialogBox.stdin);
+      return dialogBox.exitCode;
+      // ignore: avoid_catching_errors
+    } on StateError catch (_) {
+      // coverage:ignore-start
+      return dialogBox.exitCode;
+      // coverage:ignore-end
+    }
   }
 
   Timer spin() => 0.let(
